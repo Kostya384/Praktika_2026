@@ -1,0 +1,45 @@
+#include <stdio.h>
+ 
+void solve() {
+    int n;
+    if (scanf("%d", &n) != 1) return;
+ 
+    if (n == 0) {
+        printf("10\n");
+        return;
+    }
+    if (n == 1) {
+        printf("1\n");
+        return;
+    }
+ 
+    int digits[40];
+    int count = 0;
+ 
+    for (int d = 9; d >= 2; d--) {
+        while (n % d == 0) {
+            digits[count++] = d;
+            n /= d;
+        }
+    }
+ 
+    if (n > 1) {
+        printf("-1\n");
+    } else {
+        for (int i = count - 1; i >= 0; i--) {
+            printf("%d", digits[i]);
+        }
+        printf("\n");
+    }
+}
+ 
+int main() {
+    int t;
+    if (scanf("%d", &t) != 1) return 0;
+ 
+    while (t--) {
+        solve();
+    }
+ 
+    return 0;
+}
