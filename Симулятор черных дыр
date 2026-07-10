@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+ 
+struct BlackHole {
+    int mass;
+    int id;
+ 
+    bool operator<(const BlackHole& other) const {
+        return mass < other.mass;
+    }
+};
+ 
+int main() {
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(NULL);
+ 
+    int n;
+    long long central_mass;
+    if (!(std::cin >> n >> central_mass)) return 0;
+ 
+    std::vector<BlackHole> holes(n);
+    for (int i = 0; i < n; ++i) {
+        std::cin >> holes[i].mass;
+        holes[i].id = i + 1; 
+    }
+ 
+    std::sort(holes.begin(), holes.end());
+ 
+    std::vector<int> order;
+    order.reserve(n);
+ 
+    for (int i = 0; i < n; ++i) {
+        if (central_mass > holes[i].mass) {
+            central_mass += holes[i].mass;
+            order.push_back(holes[i].id);
+        } else {
+            std::cout << "NO\n";
+            return 0;
+        }
+    }
+ 
+    std::cout << "YES\n";
+    for (int i = 0; i < n; ++i) {
+        std::cout << order[i] << (i == n - 1 ? "" : " ");
+    }
+    std::cout << "\n";
+ 
+    return 0;
+}
